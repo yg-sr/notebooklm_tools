@@ -97,6 +97,13 @@ async def _cmd_rename_source(args: argparse.Namespace) -> int:
     return 0
 
 
+async def _cmd_delete_notebook(args: argparse.Namespace) -> int:
+    async with Session() as s:
+        await NblmClient(s).delete_notebook(args.notebook_id)
+    print(f"ノートを削除しました: {args.notebook_id}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="nblm", description="Personal NotebookLM uploader")
     sub = p.add_subparsers(dest="command", required=True)
@@ -130,6 +137,9 @@ def build_parser() -> argparse.ArgumentParser:
     pr.add_argument("source_id", help="対象ソース ID")
     pr.add_argument("title", help="新しいソース名")
 
+    pdn = sub.add_parser("delete-notebook", help="ノートを削除（中のソースも全削除）")
+    pdn.add_argument("notebook_id", help="削除するノート ID")
+
     return p
 
 
@@ -141,6 +151,7 @@ _HANDLERS = {
     "sources": _cmd_sources,
     "delete-source": _cmd_delete_source,
     "rename-source": _cmd_rename_source,
+    "delete-notebook": _cmd_delete_notebook,
 }
 
 

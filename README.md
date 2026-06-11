@@ -52,6 +52,7 @@ nblm add "メモ本文"                    -n <NOTEBOOK_ID> --type text --title 
 
 nblm delete-source <SOURCE_ID> -n <NOTEBOOK_ID>      # ソース削除
 nblm rename-source <SOURCE_ID> "新しい名前"           # ソース名変更
+nblm delete-notebook <NOTEBOOK_ID>                   # ノート削除（中のソースも全削除）
 ```
 
 主なオプション: `-n/--notebook`（対象ノート）, `--type auto|url|file|text`,
@@ -112,8 +113,8 @@ nb.add("/path/to/file.pdf", "<NOTEBOOK_ID>", wait=True)
 ## 3. MCP サーバーとして使う（Claude Code 等の AI エージェント）
 
 stdio で動く MCP サーバー `nblm-mcp` を提供します。公開ツール:
-`list_notebooks` / `create_notebook` / `add_source` / `list_sources` /
-`delete_source` / `rename_source`。
+`list_notebooks` / `create_notebook` / `delete_notebook` / `add_source` /
+`list_sources` / `delete_source` / `rename_source`。
 
 Claude Code への登録（user スコープ）:
 ```bash

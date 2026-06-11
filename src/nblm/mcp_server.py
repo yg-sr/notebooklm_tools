@@ -31,6 +31,14 @@ async def create_notebook(title: str) -> dict:
 
 
 @mcp.tool()
+async def delete_notebook(notebook_id: str) -> dict:
+    """ノートを削除する（中のソースもすべて消える）。戻り値: {deleted, notebook_id}。"""
+    async with Session() as s:
+        await NblmClient(s).delete_notebook(notebook_id)
+    return {"deleted": True, "notebook_id": notebook_id}
+
+
+@mcp.tool()
 async def add_source(
     notebook_id: str,
     content: str,

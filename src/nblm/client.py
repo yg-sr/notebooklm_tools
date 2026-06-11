@@ -21,6 +21,7 @@ from .rpc import RPCError, rpc_call
 # --- rpcids ---------------------------------------------------------------
 RPC_LIST_NOTEBOOKS = "wXbhsf"
 RPC_CREATE_NOTEBOOK = "CCqFvf"
+RPC_DELETE_NOTEBOOK = "WWINqb"
 RPC_GET_NOTEBOOK = "rLM1Ne"
 RPC_ADD_SOURCE = "izAoDd"
 RPC_ADD_SOURCE_FILE = "o4cbdc"
@@ -125,6 +126,9 @@ class NblmClient:
         if not isinstance(result, list):
             raise NotebookLMError(f"想定外のノート作成レスポンス: {result!r}")
         return Notebook.from_entry(result)
+
+    async def delete_notebook(self, notebook_id: str) -> None:
+        await rpc_call(self._s, RPC_DELETE_NOTEBOOK, [[notebook_id], [2]])
 
     # --- sources: add -----------------------------------------------------
     async def add_url(self, notebook_id: str, url: str) -> str:
