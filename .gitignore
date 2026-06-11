@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# venv / uv
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# --- 認証データ・秘匿情報（絶対にコミットしない）---
+# 通常は ~/.notebooklm/ 配下（リポジトリ外）だが、誤って持ち込んだ場合の安全網
+.notebooklm/
+chrome-profile/
+storage_state.json
+*storage_state*.json
+api_key
+*.env
+.env
